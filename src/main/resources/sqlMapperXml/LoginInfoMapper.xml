@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzh.comb.mapper.LoginInfoMapper">
+	<resultMap id="BaseResultMap" type="com.xzh.comb.model.LoginInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="session" property="session" jdbcType="CHAR" />
+		<result column="success" property="success" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, session, success, username, password, timestamp
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from auth
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from auth
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.xzh.comb.model.LoginInfo">
+		insert into auth (id, session, success,
+		username, password, timestamp
+		)
+		values (#{id,jdbcType=INTEGER}, #{session,jdbcType=CHAR},
+		#{success,jdbcType=BIT},
+		#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{timestamp,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.xzh.comb.model.LoginInfo">
+		insert into auth
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="session != null">
+				session,
+			</if>
+			<if test="success != null">
+				success,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="timestamp != null">
+				timestamp,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="session != null">
+				#{session,jdbcType=CHAR},
+			</if>
+			<if test="success != null">
+				#{success,jdbcType=BIT},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="timestamp != null">
+				#{timestamp,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xzh.comb.model.LoginInfo">
+		update auth
+		<set>
+			<if test="session != null">
+				session = #{session,jdbcType=CHAR},
+			</if>
+			<if test="success != null">
+				success = #{success,jdbcType=BIT},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="timestamp != null">
+				timestamp = #{timestamp,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xzh.comb.model.LoginInfo">
+		update auth
+		set session = #{session,jdbcType=CHAR},
+		success = #{success,jdbcType=BIT},
+		username = #{username,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		timestamp = #{timestamp,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="list" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from auth
+		<where>
+			<if test="session != null and session != ''">
+				and session like #{session}
+			</if>
+			<if test="username != null and username != ''">
+				and username like #{username}
+			</if>
+			<if test="password != null and password != ''">
+				and password like #{password}
+			</if>
+			<if test="success != null">
+				and success = #{success}
+			</if>
+			<if test="startTime != null and startTime != '' ">
+				and timestamp &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != '' ">
+				and timestamp &lt;= #{endTime}
+			</if>
+		</where>
+		<if test="sort !=null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+		<if test="start != null and size != null">
+			limit #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(1)
+		from auth
+		<where>
+			<if test="session != null and session != ''">
+				and session like #{session}
+			</if>
+			<if test="username != null and username != ''">
+				and username like #{username}
+			</if>
+			<if test="password != null and password != ''">
+				and password like #{password}
+			</if>
+			<if test="success != null">
+				and success = #{success}
+			</if>
+			<if test="startTime != null and startTime != '' ">
+				and timestamp &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != '' ">
+				and timestamp &lt;= #{endTime}
+			</if>
+		</where>
+	</select>
+
+</mapper>

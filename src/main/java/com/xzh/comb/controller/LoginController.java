@@ -63,4 +63,15 @@ public class LoginController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject result = new JSONObject();
+		logger.info("登出");
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		result.put("success", true);
+		ResponseUtil.write(response, result);
+		return null;
+	}
 }
