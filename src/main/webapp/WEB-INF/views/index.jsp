@@ -37,6 +37,9 @@
 	<div class="easyui-accordion" data-options="fit:true, border:false">
 		<div title="基本信息" data-options="selected:true" style="padding: 10px">
 			<a href="javascript:openTab('登录信息', 'loginInfoPage')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px">登录信息</a>
+			<a href="javascript:openTab('sessions信息', 'sessionsInfoPage')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px">sessions信息</a>
+			<a href="javascript:openTab('操作信息', 'inputInfoPage')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px">操作信息</a>
+			<a href="javascript:openTab('上传文件信息', 'downloadsInfoPage')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px">上传文件信息</a>
 		</div>
 </div>
 

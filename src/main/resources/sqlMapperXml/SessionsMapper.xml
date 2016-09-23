@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzh.comb.mapper.SessionsMapper">
+	<resultMap id="BaseResultMap" type="com.xzh.comb.model.Sessions">
+		<id column="id" property="id" jdbcType="CHAR" />
+		<result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+		<result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+		<result column="sensor" property="sensor" jdbcType="INTEGER" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="termsize" property="termsize" jdbcType="VARCHAR" />
+		<association column="client" property="client"
+			select="com.xzh.comb.mapper.ClientsMapper.selectByPrimaryKey"></association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, starttime, endtime, sensor, ip, termsize, client
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sessions
+		where id = #{id,jdbcType=CHAR}
+	</select>
+
+	<select id="list" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sessions
+		<where>
+			<if test="id != null and id != ''">
+				and id like #{id}
+			</if>
+			<if test="ip != null and ip != ''">
+				and ip like #{ip}
+			</if>
+			<if test="startTime != null and startTime != '' ">
+				and starttime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != '' ">
+				and starttime &lt;= #{endTime}
+			</if>
+		</where>
+		<if test="sort !=null and sort != ''">
+			order by ${sort} ${order}
+		</if>
+		<if test="start != null and size != null">
+			limit #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(1)
+		from sessions
+		<where>
+			<if test="id != null and id != ''">
+				and id like #{id}
+			</if>
+			<if test="ip != null and ip != ''">
+				and ip like #{ip}
+			</if>
+			<if test="startTime != null and startTime != '' ">
+				and starttime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != '' ">
+				and starttime &lt;= #{endTime}
+			</if>
+		</where>
+	</select>
+
+</mapper>

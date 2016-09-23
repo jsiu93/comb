@@ -17,4 +17,19 @@ public class PageController {
 		return "/admin/loginInfoPage";
 	}
 	
+	@RequestMapping("/sessionsInfoPage")
+	public String sessionsInfoPage(){
+		return "/admin/sessionsInfoPage";
+	}
+	
+	@RequestMapping("/inputInfoPage")
+	public String inputInfoPage(){
+		return "/admin/inputInfoPage";
+	}
+	
+	@RequestMapping("/downloadsInfoPage")
+	public String downloadsInfoPage(){
+		return "/admin/downloadsInfoPage";
+	}
+	
 }
