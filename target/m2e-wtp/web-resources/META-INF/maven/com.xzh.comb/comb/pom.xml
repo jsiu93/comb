@@ -116,7 +116,7 @@
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -171,7 +171,7 @@
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		
+
 
 		<!-- apache公共包 -->
 		<dependency>
@@ -207,7 +207,13 @@
 			<version>1.0.6</version>
 		</dependency>
 
-
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+ 
 
 		<!-- 添加连接池druid支持 -->
 		<dependency>

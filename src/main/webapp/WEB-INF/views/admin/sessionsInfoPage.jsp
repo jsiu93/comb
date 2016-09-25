@@ -13,7 +13,7 @@
 		<thead>
 		<tr>
    			<th field="id" width="30" align="center" sortable="true">ID</th>
-   			<th field="ip" width="40" align="center">IP</th>
+   			<th field="ip" width="40" align="center" formatter="ipFormat">IP</th>
    			<th field="client" width="50" align="center" formatter="clientFormat">客户端</th>
    			<th field="termsize" width="30" align="center" >客户端大小</th>
    			<th field="starttime" width="50" align="center" sortable="true">开始时间</th>
@@ -23,8 +23,8 @@
 	</table>
 	<div id="tb">
 		<div>
-			&nbsp;ID：&nbsp;<input type="text" id="s_id" placeholder="ID" size="20" onkeydown="if(event.keyCode==13) searchSessionsInfo()" />
-	  		&nbsp;IP：&nbsp;<input type="text" id="s_ip" placeholder="IP" size="20" onkeydown="if(event.keyCode==13) searchSessionsInfo()" />
+			&nbsp;ID：&nbsp;<input type="text" class="easyui-textbox" id="s_id" placeholder="ID" size="20" onkeydown="if(event.keyCode==13) searchSessionsInfo()" />
+	  		&nbsp;IP：&nbsp;<input type="text" class="easyui-textbox" id="s_ip" placeholder="IP" size="20" onkeydown="if(event.keyCode==13) searchSessionsInfo()" />
   			<br/>
   			&nbsp;开始时间段：&nbsp;
   			<input class="easyui-datetimebox" style="width: 180px" id="startTime" />&nbsp; ~&nbsp;
@@ -45,6 +45,20 @@ function searchSessionsInfo(){
 function clientFormat(val, row){
 	if(val == null) return "";
 	return row.client.version;
+}
+
+function ipFormat(val, row){
+	return "<a  href='javascript:;' onclick='checkIp(\""+row.ip+"\")'>"+val+"</a>"
+}
+
+function checkIp(ip){
+	$.post('${path}/ip/getAddress', {ip:ip}, function(result){
+		result = $.parseJSON(result);
+		if(result.success){
+			var content = result.data.country + result.data.region + result.data.county + " " + result.data.isp;
+			$.messager.alert("IP查询", content);
+		}
+	});
 }
 </script>
 </body>

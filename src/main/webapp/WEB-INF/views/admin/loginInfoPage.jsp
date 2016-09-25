@@ -23,9 +23,9 @@
 	</table>
 	<div id="tb">
 		<div>
-			&nbsp;session：&nbsp;<input type="text" id="s_session" placeholder="session" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
-	  		&nbsp;登录名：&nbsp;<input type="text" id="s_username" placeholder="登录名" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
-	  		&nbsp;密码：&nbsp;<input type="text" id="s_password" placeholder="密码" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
+			&nbsp;session：&nbsp;<input type="text" id="s_session" class="easyui-textbox" placeholder="session" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
+	  		&nbsp;登录名：&nbsp;<input type="text" id="s_username" class="easyui-textbox" placeholder="登录名" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
+	  		&nbsp;密码：&nbsp;<input type="text" id="s_password" class="easyui-textbox" placeholder="密码" size="20" onkeydown="if(event.keyCode==13) searchLoginInfo()" />
 	  		&nbsp;是否成功：&nbsp;
 	  		<select class="easyui-combobox" id="s_success" editable="false" panelHeight="auto" >
   			<option  value="">请选择</option>

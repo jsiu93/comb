@@ -12,7 +12,6 @@
 		<table style="padding:5px" width="100%">
 			<tr>
 				<td width="50%">
-					<img alt="logo" src="">
 				</td>
 				<td valign="bottom" align="right" width="50%">
 					<font size="3">&nbsp;&nbsp;

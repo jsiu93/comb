@@ -14,7 +14,7 @@
 		<tr>
    			<th field="id" width="50" align="center" hidden="true" hidden="true">编号</th>
    			<th field="session" width="20" align="center" sortable="true">session</th>
-   			<th field="ip" width="30" align="center" >IP</th>
+   			<th field="ip" width="30" align="center" formatter="ipFormat">IP</th>
    			<th field="success" width="20" align="center" sortable="true">是否成功</th>
    			<th field="input" width="80" align="center">操作</th>
    			<th field="timestamp" width="30" align="center" sortable="true">时间</th>
@@ -23,8 +23,8 @@
 	</table>
 	<div id="tb">
 		<div>
-			&nbsp;session：&nbsp;<input type="text" id="s_session" placeholder="session" size="20" onkeydown="if(event.keyCode==13) searchInputInfo()" />
-			&nbsp;IP：&nbsp;<input type="text" id="s_ip" placeholder="IP" size="20" onkeydown="if(event.keyCode==13) searchInputInfo()" />
+			&nbsp;session：&nbsp;<input type="text" id="s_session" class="easyui-textbox" placeholder="session" size="20" onkeydown="if(event.keyCode==13) searchInputInfo()" />
+			&nbsp;IP：&nbsp;<input type="text" id="s_ip" class="easyui-textbox" placeholder="IP" size="20" onkeydown="if(event.keyCode==13) searchInputInfo()" />
 	  		&nbsp;是否成功：&nbsp;
 	  		<select class="easyui-combobox" id="s_success" editable="false" panelHeight="auto" >
   			<option  value="">请选择</option>
@@ -46,6 +46,20 @@ function searchInputInfo(){
 		'success':$('#s_success').combobox('getValue'),
 		'startTime':$('#startTime').datetimebox('getValue'),
 		'endTime':$('#endTime').datetimebox('getValue')
+	});
+}
+
+function ipFormat(val, row){
+	return "<a  href='javascript:;' onclick='checkIp(\""+row.ip+"\")'>"+val+"</a>"
+}
+
+function checkIp(ip){
+	$.post('${path}/ip/getAddress', {ip:ip}, function(result){
+		result = $.parseJSON(result);
+		if(result.success){
+			var content = result.data.country + result.data.region + result.data.county + " " + result.data.isp;
+			$.messager.alert("IP查询", content);
+		}
 	});
 }
 
