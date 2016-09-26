@@ -3,11 +3,11 @@
 <mapper namespace="com.xzh.comb.mapper.LoginInfoMapper">
 	<resultMap id="BaseResultMap" type="com.xzh.comb.model.LoginInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="session" property="session" jdbcType="CHAR" />
 		<result column="success" property="success" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+		<association property="session" column="session" select="com.xzh.comb.mapper.SessionsMapper.selectByPrimaryKey"></association>
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, session, success, username, password, timestamp
@@ -19,92 +19,6 @@
 		from auth
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from auth
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
-	<insert id="insert" parameterType="com.xzh.comb.model.LoginInfo">
-		insert into auth (id, session, success,
-		username, password, timestamp
-		)
-		values (#{id,jdbcType=INTEGER}, #{session,jdbcType=CHAR},
-		#{success,jdbcType=BIT},
-		#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{timestamp,jdbcType=TIMESTAMP}
-		)
-	</insert>
-	<insert id="insertSelective" parameterType="com.xzh.comb.model.LoginInfo">
-		insert into auth
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="session != null">
-				session,
-			</if>
-			<if test="success != null">
-				success,
-			</if>
-			<if test="username != null">
-				username,
-			</if>
-			<if test="password != null">
-				password,
-			</if>
-			<if test="timestamp != null">
-				timestamp,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="session != null">
-				#{session,jdbcType=CHAR},
-			</if>
-			<if test="success != null">
-				#{success,jdbcType=BIT},
-			</if>
-			<if test="username != null">
-				#{username,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				#{password,jdbcType=VARCHAR},
-			</if>
-			<if test="timestamp != null">
-				#{timestamp,jdbcType=TIMESTAMP},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.xzh.comb.model.LoginInfo">
-		update auth
-		<set>
-			<if test="session != null">
-				session = #{session,jdbcType=CHAR},
-			</if>
-			<if test="success != null">
-				success = #{success,jdbcType=BIT},
-			</if>
-			<if test="username != null">
-				username = #{username,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				password = #{password,jdbcType=VARCHAR},
-			</if>
-			<if test="timestamp != null">
-				timestamp = #{timestamp,jdbcType=TIMESTAMP},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.xzh.comb.model.LoginInfo">
-		update auth
-		set session = #{session,jdbcType=CHAR},
-		success = #{success,jdbcType=BIT},
-		username = #{username,jdbcType=VARCHAR},
-		password = #{password,jdbcType=VARCHAR},
-		timestamp = #{timestamp,jdbcType=TIMESTAMP}
-		where id = #{id,jdbcType=INTEGER}
-	</update>
 
 	<select id="list" parameterType="Map" resultMap="BaseResultMap">
 		select

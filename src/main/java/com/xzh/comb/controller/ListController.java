@@ -64,10 +64,10 @@ public class ListController {
 	@RequestMapping("/loginInfoList")
 	public String loginInfoList(@RequestParam(value = "page", required = false) String page,
 			@RequestParam(value = "rows", required = false) String rows, LoginInfo s_loginInfo, String startTime,
-			String endTime, String sort, String order, HttpServletResponse response) throws Exception {
+			String endTime, String sort, String order,String sessionId, HttpServletResponse response) throws Exception {
 		PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
 		Map<String, Object> map = Maps.newHashMap();
-		map.put("session", StringUtil.formatLike(s_loginInfo.getSession()));
+		map.put("session", StringUtil.formatLike(sessionId));
 		map.put("username", StringUtil.formatLike(s_loginInfo.getUsername()));
 		map.put("password", StringUtil.formatLike(s_loginInfo.getPassword()));
 		map.put("success", s_loginInfo.getSuccess());
